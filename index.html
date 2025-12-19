@@ -3,14 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Emarket - Premium eBooks</title>
+    <title>buyebooks - Premium eBooks</title>
+    <!-- Brand Favicon using the provided logo URL -->
+    <link rel="icon" type="image/webp" href="https://files.oaiusercontent.com/file-K8kP8lI3YIclL0jUOnYIuX6T?se=2024-05-13T12%3A15%3A55Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20private&rscd=attachment%3B%20filename%3D7398b688-6623-41a4-9e32-a6f98f625902.webp&sig=G0f209X6j8fM0o9O/y/YF4V4K4Yl4I5X4Z4H4L4J4G4%3D">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
       body {
         font-family: 'Inter', sans-serif;
       }
-      /* Hide scrollbar for clean reader view */
       .no-scrollbar::-webkit-scrollbar {
         display: none;
       }
@@ -18,29 +19,27 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
       }
-      /* Smooth transitions for auth screens */
       .auth-gradient {
         background: linear-gradient(135deg, #2874f0 0%, #1e40af 100%);
       }
     </style>
     <script type="importmap">
-{
-  "imports": {
-    "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
-    "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
-    "firebase/": "https://esm.sh/firebase@^12.7.0/"
-  }
-}
-</script>
+    {
+      "imports": {
+        "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
+        "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "react": "https://esm.sh/react@^19.2.3",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+        "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+        "firebase/": "https://esm.sh/firebase@^12.7.0/"
+      }
+    }
+    </script>
   </head>
   <body class="bg-slate-50 text-slate-900 antialiased">
     <div id="root"></div>
-    <!-- Entry point script -->
     <script type="module" src="./index.tsx"></script>
   </body>
 </html>

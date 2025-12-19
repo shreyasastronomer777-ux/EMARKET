@@ -1,13 +1,10 @@
-
 import React, { useState } from 'react';
 import { 
-  BookOpen, 
   Library, 
   Heart, 
   PlusCircle, 
   Search, 
   ShoppingCart, 
-  Menu, 
   User as UserIcon, 
   LayoutDashboard, 
   LogOut,
@@ -26,6 +23,8 @@ interface NavbarProps {
   onLogout: () => void;
   role: 'buyer' | 'seller' | null;
 }
+
+const LOGO_URL = "https://files.oaiusercontent.com/file-K8kP8lI3YIclL0jUOnYIuX6T?se=2024-05-13T12%3A15%3A55Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20private&rscd=attachment%3B%20filename%3D7398b688-6623-41a4-9e32-a6f98f625902.webp&sig=G0f209X6j8fM0o9O/y/YF4V4K4Yl4I5X4Z4H4L4J4G4%3D";
 
 export const Navbar: React.FC<NavbarProps> = ({ 
   currentView, 
@@ -50,13 +49,16 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center justify-between h-16 gap-4">
           
           <div 
-            className="flex-shrink-0 flex items-center cursor-pointer gap-2 min-w-fit"
+            className="flex-shrink-0 flex items-center cursor-pointer gap-2 min-w-fit group"
             onClick={() => setView(role === 'seller' ? 'dashboard' : 'store')}
           >
-            <div className="italic font-bold text-xl tracking-tighter flex flex-col leading-none">
-              <span className="text-lg">Emarket</span>
+            <div className="bg-white p-1 rounded-lg shadow-sm group-hover:scale-105 transition-transform w-10 h-10 flex items-center justify-center overflow-hidden">
+               <img src={LOGO_URL} alt="buyebooks logo" className="w-full h-full object-cover" />
+            </div>
+            <div className="italic font-bold text-xl tracking-tighter flex flex-col leading-none ml-1">
+              <span className="text-xl lowercase font-bold tracking-tight">buyebooks</span>
               <span className="text-[10px] text-yellow-400 font-medium not-italic flex items-center gap-0.5">
-                {role === 'seller' ? 'Seller Hub' : 'Plus ✦'}
+                {role === 'seller' ? 'Seller Hub' : 'Premium ✦'}
               </span>
             </div>
           </div>

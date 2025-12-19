@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   signInWithEmailAndPassword, 
@@ -7,11 +6,13 @@ import {
   updateProfile 
 } from 'firebase/auth';
 import { auth, googleProvider } from '../services/firebase';
-import { Mail, Lock, User, ShieldCheck, ShoppingBag, ArrowRight, Chrome } from 'lucide-react';
+import { Mail, Lock, User, ShieldCheck, ArrowRight, Chrome } from 'lucide-react';
 
 interface AuthProps {
   onAuthSuccess: (role: 'buyer' | 'seller') => void;
 }
+
+const LOGO_URL = "https://files.oaiusercontent.com/file-K8kP8lI3YIclL0jUOnYIuX6T?se=2024-05-13T12%3A15%3A55Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20private&rscd=attachment%3B%20filename%3D7398b688-6623-41a4-9e32-a6f98f625902.webp&sig=G0f209X6j8fM0o9O/y/YF4V4K4Yl4I5X4Z4H4L4J4G4%3D";
 
 export const Auth: React.FC<AuthProps> = ({ onAuthSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -60,11 +61,11 @@ export const Auth: React.FC<AuthProps> = ({ onAuthSuccess }) => {
       <div className="max-w-md w-full bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
         <div className="p-8">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-600 text-white mb-4 shadow-lg shadow-indigo-200">
-              <ShoppingBag size={32} />
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-white mb-4 shadow-lg border border-slate-100 overflow-hidden">
+              <img src={LOGO_URL} alt="buyebooks logo" className="w-full h-full object-cover" />
             </div>
-            <h1 className="text-3xl font-bold text-slate-900">Emarket</h1>
-            <p className="text-slate-500 mt-2">Premium eBooks Marketplace</p>
+            <h1 className="text-3xl font-bold text-slate-900 lowercase tracking-tight">buyebooks</h1>
+            <p className="text-slate-500 mt-2 text-sm">Premium eBooks Marketplace</p>
           </div>
 
           {/* Role Selector */}
@@ -74,14 +75,14 @@ export const Auth: React.FC<AuthProps> = ({ onAuthSuccess }) => {
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold transition-all ${role === 'buyer' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
             >
               <User size={18} />
-              I'm a Buyer
+              Buyer
             </button>
             <button
               onClick={() => setRole('seller')}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold transition-all ${role === 'seller' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
             >
               <ShieldCheck size={18} />
-              I'm a Seller
+              Seller
             </button>
           </div>
 
@@ -143,7 +144,7 @@ export const Auth: React.FC<AuthProps> = ({ onAuthSuccess }) => {
               <div className="w-full border-t border-slate-200"></div>
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-slate-400 font-medium">Or continue with</span>
+              <span className="bg-white px-2 text-slate-400 font-medium">Or</span>
             </div>
           </div>
 
@@ -157,7 +158,7 @@ export const Auth: React.FC<AuthProps> = ({ onAuthSuccess }) => {
           </button>
 
           <p className="text-center text-sm text-slate-500">
-            {isLogin ? "Don't have an account?" : "Already have an account?"}{' '}
+            {isLogin ? "New to buyebooks?" : "Already a member?"}{' '}
             <button
               onClick={() => setIsLogin(!isLogin)}
               className="text-indigo-600 font-bold hover:underline"

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged, User, signOut } from 'firebase/auth';
 import { auth } from './services/firebase';
@@ -25,7 +24,7 @@ const App: React.FC = () => {
   // Data States with Persistence
   const [books, setBooks] = useState<Book[]>(() => {
     try {
-      const saved = localStorage.getItem('emarket_books');
+      const saved = localStorage.getItem('buyebooks_books');
       return saved ? JSON.parse(saved) : MOCK_BOOKS;
     } catch (error) {
       return MOCK_BOOKS;
@@ -34,7 +33,7 @@ const App: React.FC = () => {
 
   const [purchases, setPurchases] = useState<Purchase[]>(() => {
     try {
-      const saved = localStorage.getItem('emarket_purchases');
+      const saved = localStorage.getItem('buyebooks_purchases');
       return saved ? JSON.parse(saved) : [];
     } catch (error) {
       return [];
@@ -43,7 +42,7 @@ const App: React.FC = () => {
 
   const [wishlist, setWishlist] = useState<Set<string>>(() => {
     try {
-      const saved = localStorage.getItem('emarket_wishlist');
+      const saved = localStorage.getItem('buyebooks_wishlist');
       return saved ? new Set(JSON.parse(saved)) : new Set();
     } catch (error) {
       return new Set();
@@ -52,7 +51,7 @@ const App: React.FC = () => {
 
   const [cart, setCart] = useState<Set<string>>(() => {
     try {
-      const saved = localStorage.getItem('emarket_cart');
+      const saved = localStorage.getItem('buyebooks_cart');
       return saved ? new Set(JSON.parse(saved)) : new Set();
     } catch (error) {
       return new Set();
@@ -61,7 +60,7 @@ const App: React.FC = () => {
 
   const [reviews, setReviews] = useState<Review[]>(() => {
     try {
-      const saved = localStorage.getItem('emarket_reviews');
+      const saved = localStorage.getItem('buyebooks_reviews');
       return saved ? JSON.parse(saved) : MOCK_REVIEWS;
     } catch (error) {
       return MOCK_REVIEWS;
@@ -82,7 +81,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
-      const savedRole = localStorage.getItem(`emarket_role_${user?.uid}`);
+      const savedRole = localStorage.getItem(`buyebooks_role_${user?.uid}`);
       if (savedRole) setUserRole(savedRole as 'buyer' | 'seller');
       setAuthLoading(false);
     });
@@ -100,23 +99,23 @@ const App: React.FC = () => {
 
   // Persistence Effects
   useEffect(() => {
-    localStorage.setItem('emarket_books', JSON.stringify(books));
+    localStorage.setItem('buyebooks_books', JSON.stringify(books));
   }, [books]);
 
   useEffect(() => {
-    localStorage.setItem('emarket_purchases', JSON.stringify(purchases));
+    localStorage.setItem('buyebooks_purchases', JSON.stringify(purchases));
   }, [purchases]);
 
   useEffect(() => {
-    localStorage.setItem('emarket_wishlist', JSON.stringify(Array.from(wishlist)));
+    localStorage.setItem('buyebooks_wishlist', JSON.stringify(Array.from(wishlist)));
   }, [wishlist]);
 
   useEffect(() => {
-    localStorage.setItem('emarket_cart', JSON.stringify(Array.from(cart)));
+    localStorage.setItem('buyebooks_cart', JSON.stringify(Array.from(cart)));
   }, [cart]);
 
   useEffect(() => {
-    localStorage.setItem('emarket_reviews', JSON.stringify(reviews));
+    localStorage.setItem('buyebooks_reviews', JSON.stringify(reviews));
   }, [reviews]);
 
   useEffect(() => {
@@ -135,16 +134,16 @@ const App: React.FC = () => {
   const handleAuthSuccess = (role: 'buyer' | 'seller') => {
     setUserRole(role);
     if (auth.currentUser) {
-      localStorage.setItem(`emarket_role_${auth.currentUser.uid}`, role);
+      localStorage.setItem(`buyebooks_role_${auth.currentUser.uid}`, role);
     }
-    showNotification(`Welcome, ${auth.currentUser?.displayName || 'User'}!`);
+    showNotification(`Welcome to buyebooks, ${auth.currentUser?.displayName || 'User'}!`);
   };
 
   const handleLogout = async () => {
     await signOut(auth);
     setUserRole(null);
     setCurrentView('store');
-    showNotification("Logged out successfully");
+    showNotification("Logged out from buyebooks");
   };
 
   const handleBookClick = (book: Book) => {
@@ -168,7 +167,7 @@ const App: React.FC = () => {
       };
       setPurchases([...purchases, newPurchase]);
       setShowPaymentModal(false);
-      showNotification(`Payment successful! You can now download "${selectedBook.title}".`);
+      showNotification(`Purchase successful! Download "${selectedBook.title}" from your library.`);
       
       if (cart.has(selectedBook.id)) {
         const newCart = new Set(cart);
@@ -228,7 +227,7 @@ const App: React.FC = () => {
   const handleAddNewBook = (newBook: Book) => {
     setBooks(prev => [newBook, ...prev]);
     setCurrentView('dashboard');
-    showNotification("Your eBook has been listed for sale successfully!");
+    showNotification("Your eBook is now live on buyebooks!");
   };
 
   // Filter books logic
@@ -371,8 +370,8 @@ const App: React.FC = () => {
       <div className="max-w-[1400px] mx-auto p-2 sm:p-4">
         <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-sm shadow-md text-white p-6 sm:p-12 relative overflow-hidden">
            <div className="relative z-10 max-w-lg">
-             <h2 className="text-3xl sm:text-4xl font-bold mb-2">Knowledge Festival</h2>
-             <p className="text-lg opacity-90 mb-6">Up to 70% off on Finance & Self-Help Bestsellers.</p>
+             <h2 className="text-3xl sm:text-4xl font-bold mb-2">Reading Festival</h2>
+             <p className="text-lg opacity-90 mb-6">Up to 70% off on all bestsellers on buyebooks.</p>
              <button className="bg-white text-indigo-600 px-6 py-2 rounded-sm font-semibold shadow-lg hover:bg-slate-50 transition">
                Explore Now
              </button>
@@ -384,7 +383,7 @@ const App: React.FC = () => {
       <div className="max-w-[1400px] mx-auto pb-8">
         <div className="bg-white mx-2 sm:mx-4 mb-4 p-4 rounded-sm shadow-sm flex justify-between items-center">
           <h2 className="text-lg font-semibold text-slate-800">
-             {selectedCategory === 'All' ? 'Recommended for You' : `${selectedCategory} Books`}
+             {selectedCategory === 'All' ? 'Curated for You' : `${selectedCategory} Books`}
           </h2>
           <button className="bg-[#2874f0] text-white text-xs font-semibold px-3 py-2 rounded-sm shadow-sm">VIEW ALL</button>
         </div>
