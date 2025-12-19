@@ -1,0 +1,5 @@
+{
+  "name": "Emarket",
+  "description": "A premium eBook marketplace where users can purchase books via UPI and access them in their secure digital library.",
+  "requestFramePermissions": []
+}
